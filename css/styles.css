@@ -107,11 +107,11 @@ span#allclasses{
 cursor:pointer;
 }
 
-div#s1i, div#s2i, div#s3i, div#s4i, div#s5i, div#s6i, div#s7i, div#sSummeri{/*initial*/
+div#s1i, div#s2i, div#s3i, div#s4i, div#s5i, div#s6i, div#s7i, div#s8i, div#sSummeri{/*initial*/
 cursor:pointer;
 display:block;
 }
 
-div#s1c, div#s2c, div#s3c, div#s4c, div#s5c, div#s6c, div#s7c, div#sSummerc{/*courses*/
+div#s1c, div#s2c, div#s3c, div#s4c, div#s5c, div#s6c, div#s7c, div#s8c, div#sSummerc{/*courses*/
 display:none;
 }

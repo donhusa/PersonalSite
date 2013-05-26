@@ -16,6 +16,16 @@ Click on a semester to display the courses I took, or click
 <u><span id="allclasses">here</span></u> to show all).
 
 <br /><br />
+<div id="s8i" >
+Spring 2013 Courses</div>
+<div id="s8c" style="display:none"><hr />
+&nbsp; &nbsp; ECE 556: Wireless Networking<br />
+&nbsp; &nbsp; ECE 590: Advanced Topics in ECE - Image and Video Processing<br />
+&nbsp; &nbsp; BIO 311: Intro to Systems Biology<br />
+&nbsp; &nbsp; HOUSECS 59: House Course - Programming Languages<br />
+&nbsp; &nbsp; PSYEDU 150: Social Dancing</div>
+<br />
+
 <div id="s7i" >
 	Fall 2012 Courses</div>
 <div id="s7c" style="display:none"><hr />
