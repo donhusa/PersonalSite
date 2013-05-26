@@ -48,7 +48,7 @@ function removePosts(){
 }
 
 function showform(){
-	include 'removepostform.php';
+	include 'forms/removepostform.php';
 }
 
 ?>

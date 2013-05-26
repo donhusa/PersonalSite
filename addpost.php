@@ -56,7 +56,7 @@ function addPost(){
 }
 
 function showform(){
-	include 'addpostform.php';
+	include 'forms/addpostform.php';
 }
 
 ?>

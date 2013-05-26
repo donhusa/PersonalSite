@@ -3,7 +3,8 @@
 
 <?php $my_file=file_get_contents("header.html");
 $to_print=str_replace("<!--js-->",
-	'<script language="javascript" type="text/javascript" src="courseeffects.js"></script>'
+	'<script language="javascript" type="text/javascript" '.
+		'src="javascript/courseeffects.js"></script>'
 	,$my_file);
 echo $to_print; 
 include("header.php");

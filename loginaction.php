@@ -30,7 +30,7 @@ function loginFail($reason){
 	$GLOBALS["outputText"].="<div id=main>";
 	$GLOBALS["outputText"].='<span style="color:red;">';
 	$GLOBALS["outputText"].=$reason."</span>";
-	$GLOBALS["outputText"].=file_get_contents("loginform.php");
+	$GLOBALS["outputText"].=file_get_contents("forms/loginform.php");
 	$GLOBALS["outputText"].="</div>";
 }
 

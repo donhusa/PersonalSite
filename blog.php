@@ -4,7 +4,7 @@
 
 <?php $my_file=file_get_contents("header.html");
 $to_print=str_replace("<!--js-->",
-	'<link rel="stylesheet" type="text/css" href="blogstyles.css">'
+	'<link rel="stylesheet" type="text/css" href="css/blogstyles.css">'
 	,$my_file);
 echo $to_print; 
 include("header.php");

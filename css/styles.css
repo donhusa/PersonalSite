@@ -21,7 +21,7 @@ margin: 0px;
 padding: 10px;
 font-size:34pt;
 color:#ffffff;
-background-image:url('lightningbg.jpg');;
+background-image:url('../images/lightningbg.jpg');;
 height:200px;			/* actually about 220*/
 text-align:left;
 border-bottom: thin solid #000000;
