@@ -13,6 +13,11 @@ include("header.php");
     $password = $url["pass"];
     $db = substr($url["path"],1);
 
+    echo $server ."\n";
+    echo $username ."\n";
+    echo $password ."\n";
+    echo $db ."\n";
+
     $con=mysql_connect($server, $username, $password);
     if (!$con){
         die('Could not connect: ' . mysql_error());
@@ -40,7 +45,7 @@ include("header.php");
     }
     $result = mysql_query($sql3,$con);
     print_r($result);
-    
+
 ?>
 
 <div id="main">
