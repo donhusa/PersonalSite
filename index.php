@@ -4,6 +4,7 @@
 
 <?php include("header.html"); 
 include("header.php");
+    echo 'here';
 
     $url=parse_url(getenv("CLEARDB_DATABASE_URL"));
 
@@ -15,9 +16,14 @@ include("header.php");
     $con=mysql_connect($server, $username, $password);
     if (!$con){
         die('Could not connect: ' . mysql_error());
+    }
+    else {
+        echo 'data';
+        var_dump($con);
     }        
     
     mysql_select_db($db);
+    echo 'end';
 
 ?>
 

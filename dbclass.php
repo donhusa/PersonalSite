@@ -8,10 +8,6 @@ class DataBase{
 		if (!$con){
 	  		die('Could not connect: ' . mysql_error());
 	  	}
-	  	else {
-	  		echo 'data';
-	  		var_dump($con);
-	  	}
 	  	mysql_select_db("MarkMyWords", $con);
 	  	return $con;
 	}
