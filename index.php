@@ -4,6 +4,21 @@
 
 <?php include("header.html"); 
 include("header.php");
+
+    $url=parse_url(getenv("CLEARDB_DATABASE_URL"));
+
+    $server = $url["host"];
+    $username = $url["user"];
+    $password = $url["pass"];
+    $db = substr($url["path"],1);
+
+    $con=mysql_connect($server, $username, $password);
+    if (!$con){
+        die('Could not connect: ' . mysql_error());
+    }        
+    
+    mysql_select_db($db);
+
 ?>
 
 <div id="main">
