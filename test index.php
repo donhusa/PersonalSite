@@ -4,6 +4,48 @@
 
 <?php include("header.html"); 
 include("header.php");
+    echo 'here';
+
+    $url=parse_url(getenv("CLEARDB_DATABASE_URL"));
+
+    $server = $url["host"];
+    $username = $url["user"];
+    $password = $url["pass"];
+    $db = substr($url["path"],1);
+
+    echo $server ."\n";
+    echo $username ."\n";
+    echo $password ."\n";
+    echo $db ."\n";
+
+    $con=mysql_connect($server, $username, $password);
+    if (!$con){
+        die('Could not connect: ' . mysql_error());
+    }
+    else {
+        echo 'data';
+        var_dump($con);
+    }        
+    
+    mysql_select_db($db);
+
+    $sql="CREATE TABLE Test(
+          P_Id int,
+          LastName varchar(255),
+          FirstName varchar(255))";
+    $sql2="INSERT INTO Test
+        VALUES (1,'word','nah')";
+    $sql3 ="SELECT * FROM Test";
+
+    if (!mysql_query($sql,$con)) {
+      die('Error: ' . mysql_error());
+    }
+    if (!mysql_query($sql2,$con)) {
+      die('Error: ' . mysql_error());
+    }
+    $result = mysql_query($sql3,$con);
+    print_r($result);
+
 ?>
 
 <div id="main">

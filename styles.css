@@ -1,0 +1,117 @@
+body {
+background-image: linear-gradient(left , rgb(65,96,143) 0%, rgb(255,255,255) 50%, rgb(65,96,143) 100%);
+background-image: -o-linear-gradient(left , rgb(65,96,143) 0%, rgb(255,255,255) 50%, rgb(65,96,143) 100%);
+background-image: -moz-linear-gradient(left , rgb(65,96,143) 0%, rgb(255,255,255) 50%, rgb(65,96,143) 100%);
+background-image: -webkit-linear-gradient(left , rgb(65,96,143) 0%, rgb(255,255,255) 50%, rgb(65,96,143) 100%);
+background-image: -ms-linear-gradient(left , rgb(65,96,143) 0%, rgb(255,255,255) 50%, rgb(65,96,143) 100%);
+
+background-image: -webkit-gradient(
+	linear,
+	left top,
+	right top,
+	color-stop(0, rgb(65,96,143)),
+	color-stop(0.5, rgb(255,255,255)),
+	color-stop(1, rgb(65,96,143))
+);
+margin: 0px;
+}
+
+div#header{
+margin: 0px;
+padding: 10px;
+font-size:34pt;
+color:#ffffff;
+background-image:url('lightningbg.jpg');;
+height:200px;			/* actually about 220*/
+text-align:left;
+border-bottom: thin solid #000000;
+}
+
+div#headerpix{
+position:absolute;
+}
+
+div#headertxt{
+text-align:left;
+margin-left:300px;
+}
+
+span#name{
+font-size:50pt;
+}
+
+div.nav{
+position:relative;
+float:left;
+width:100%; /*380px, or 50%*/
+background-color:#41608f;	/*nav bar color7394c7*/
+border:1px solid black;
+padding: 0px; /**/
+text-align:center;
+left:0%;		/*25%*/
+
+-moz-border-radius: 5px;
+border-radius: 5px;
+}
+
+div.nav ul {
+margin:0px;
+padding:0px;
+list-style:none;
+display:inline;
+}
+
+div.nav li{
+display:inline;
+
+color:#ffffff;
+cursor: pointer;
+font-size:12pt;
+margin: 0px;
+padding:7px,10px,7px,10px;
+/*line-height:1.4em;*/
+}
+
+div.nav ul li a:link, div.nav ul li a:visited{
+
+text-decoration:none;
+background-color: #41608f;
+color:#ffffff;
+}
+
+div.nav ul li a:hover, div.nav ul li a:active{
+
+text-decoration:none;
+background-color: #c6a648;
+color:#000000;
+}
+
+div#main{
+position:relative;
+top: 25px;
+left: 7%;
+width: 80%;
+height: 100%;/*800px*/
+border:1px solid #000000;
+color:black;
+margin: 15px;
+background-color:white;
+padding: 10px;
+min-width:600px;
+
+-moz-border-radius: 15px;
+border-radius: 15px;
+}
+
+span#allclasses{
+cursor:pointer;
+}
+
+div#s1i, div#s2i, div#s3i, div#s4i, div#s5i, div#s6i, div#s7i, div#sSummeri{/*initial*/
+cursor:pointer;
+display:block;
+}
+
+div#s1c, div#s2c, div#s3c, div#s4c, div#s5c, div#s6c, div#s7c, div#sSummerc{/*courses*/
+display:none;
+}

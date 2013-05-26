@@ -1,72 +1,142 @@
 <?php
 
+function connect(){
+    $url=parse_url(getenv("CLEARDB_DATABASE_URL"));
+    $server = $url["host"];
+    $username = $url["user"];
+    $password = $url["pass"];
+    $db = substr($url["path"],1);
 
-class DataBase{
-	function connect(){
-		$con=mysql_connect("localhost","root","root");
-		//$con=mysql_connect("host","user","pwd");
-		if (!$con){
-	  		die('Could not connect: ' . mysql_error());
-	  	}
-	  	mysql_select_db("MarkMyWords", $con);
-	  	return $con;
-	}
+    $con=mysql_connect($server, $username, $password);
 
-	function testBet(){
-		echo "test";
-		$con=$this->connect();
-		$sql="INSERT INTO Bet (better1, better2, startdate)
-			  VALUES ('$_POST[person1]','$_POST[person2]',NOW())";
-		if (!mysql_query($sql,$con)) {
-			die('Error: ' . mysql_error());
-	  	}
-		mysql_close($con);
-	}
-
-	function findBetsMadeByUser($user){
-		$con=connect();
-		$sql="SELECT BetID FROM Bet
-			  WHERE better1 = '$user'";
-		$result = mysql_query($sql,$con);
-
-	  	$row=mysql_fetch_array($result);
-		mysql_close($con);	
-		return $row;
-	}
-
-	function findBetsMadeAgainstUser($user){
-		$con=connect();
-		$sql="SELECT BetID FROM Bet
-			  WHERE better1 = '$user'";
-		$result = mysql_query($sql,$con);
-
-	  	$row=mysql_fetch_array($result);
-		mysql_close($con);	
-		return $row;
-	}
-
-
-	//add user if username not taken
-	function placeBet($b1,$b2,$moderator="none",$end,$bet,$stake){
-		$con=$this->connect();
-		
-		$sql="SELECT * FROM Bet
-			  WHERE better1 = '$b1'
-			  AND better2 = '$b2'
-			  AND thebet = '$bet'";
-		$result = mysql_query($sql,$con);
-	  	$row=mysql_fetch_array($result);
-		if ($row) return false;
-
-		$sql="INSERT INTO Bet (better1, better2, moderator, startdate, enddate, thebet, stakes)
-			  VALUES ('$b1','$b2','$moderator',NOW(), '$end', '$bet', '$stake')";
-		//$sql="INSERT INTO Bet
-		//	  VALUES ('$_POST[better1]','$_POST[better2]','$_POST[moderator]',NOW(), '$_POST[enddate]', '$_POST[thebet]', '$_POST[stakes]')";
-		if (!mysql_query($sql,$con)) {
-			die('Error: ' . mysql_error());
-	  	}
-		mysql_close($con);
-		return true;
-	}
+	//$con=mysql_connect("localhost","root","root");
+	if (!$con){
+  		die('Could not connect: ' . mysql_error());
+  	}
+  	mysql_select_db($db, $con);
+  	return $con;
 }
+
+//check user and pw against database
+//should be hashed!!!!!!!!
+function authenticateUser(){
+	$con=connect();
+	$sql="SELECT * FROM Users
+		  WHERE UserName = '$_POST[firstname]'";
+	$result = mysql_query($sql,$con);
+  	$row=mysql_fetch_array($result);
+  	if (!$row) return false;//user doesn't exist
+	mysql_close($con);
+  	return $row['Password']==$_POST['pwd'];
+}
+
+//add user if username not taken
+function addUser(){
+	$con=connect();
+	
+	$sql="SELECT * FROM Users
+		  WHERE UserName = '$_POST[firstname]'";
+	$result = mysql_query($sql,$con);
+  	$row=mysql_fetch_array($result);
+	if ($row) return false;
+
+	$sql="SELECT * FROM Users
+		  WHERE UserName = '$_POST[firstname]'";
+	$result = mysql_query($sql,$con);
+
+	$sql="INSERT INTO Users
+		  VALUES ('$_POST[firstname]','$_POST[pwd]',NOW(),NOW(),0,0)";
+	if (!mysql_query($sql,$con)) {
+		die('Error: ' . mysql_error());
+  	}
+	mysql_close($con);
+	return true;
+}
+
+//updates visits and date if user exists
+function updateUser(){
+	$con=connect();
+	$sql="SELECT * FROM Users
+		  WHERE UserName = '$_POST[firstname]'";
+	$result = mysql_query($sql,$con);
+
+  	$row=mysql_fetch_array($result);
+  	//$row=usernameQuery();
+
+  	if (!$row){//legit?
+  		echo "user doesn't exist!";
+  		return false;
+  	}
+  	$numVisits=$row['NumVisits']+1;
+  	$sql="UPDATE Users SET NumVisits='$numVisits'
+		  WHERE UserName = '$_POST[firstname]'";
+	mysql_query($sql,$con);
+  	$sql="UPDATE Users SET LastVisitDate=NOW()
+		  WHERE UserName = '$_POST[firstname]'";
+	mysql_query($sql,$con);
+	mysql_close($con);
+  	return true;
+}
+
+function getNumPosts(){
+	$con=connect();
+	$sql="SELECT * FROM BlogPosts";
+	$result=mysql_query($sql,$con);
+	$numRows=mysql_num_rows($result);
+	mysql_close($con);	
+	return $numRows;
+}
+
+function getPost($BlogID){
+	$con=connect();
+	$sql="SELECT * FROM BlogPosts
+		  WHERE ID = '$BlogID'";
+	$result = mysql_query($sql,$con);
+
+  	$row=mysql_fetch_array($result);
+	mysql_close($con);	
+	return $row;
+}
+
+function getComments($BlogID, $getRows=true){
+	$con=connect();
+	$sql="SELECT * FROM Comments
+		  WHERE PostID='$BlogID'";
+	$result=mysql_query($sql,$con);
+	if (!$getRows) return $result;	
+	$i=0;
+	while($row=mysql_fetch_array($result)){
+		$comments[$i]=$row;
+		$i=$i+1;
+	}
+	mysql_close($con);	
+	return $comments;
+}
+
+function addComment($BlogID, $comment, $user){
+	$con=connect();
+	$sql="INSERT INTO Comments 
+		  VALUES ('$BlogID','$user','$comment',NOW()) ";
+	if (!mysql_query($sql,$con)) {
+		die('Error: ' . mysql_error());
+  	}
+	mysql_close($con);
+}
+
+function countComments($BlogID){
+	
+	$result=getComments($BlogID, false);
+	return mysql_num_rows($result);
+}
+
+function getNumLikes($BlogID){
+	$con=connect();
+	$sql="SELECT Likes FROM BlogPosts
+		  WHERE ID='$BlogID'";
+	$result= mysql_query($sql, $con);
+	$row= mysql_fetch_array($result);
+	mysql_close($con);	
+	return $row['Likes'];
+}
+
 ?>
