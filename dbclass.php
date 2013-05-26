@@ -1,19 +1,25 @@
 <?php
 
 function connect(){
+
     $url=parse_url(getenv("CLEARDB_DATABASE_URL"));
     $server = $url["host"];
     $username = $url["user"];
     $password = $url["pass"];
     $db = substr($url["path"],1);
 
-    $con=mysql_connect($server, $username, $password);
+    if ($url["host"]) {
+    	$con=mysql_connect($server, $username, $password);
+    }
+	else {
+		$con=mysql_connect("localhost","root","root");
+		$db="dvh4";
+	}
 
-	//$con=mysql_connect("localhost","root","root");
 	if (!$con){
   		die('Could not connect: ' . mysql_error());
   	}
-  	mysql_select_db($db, $con);
+	mysql_select_db($db,$con);
   	return $con;
 }
 
