@@ -23,8 +23,24 @@ include("header.php");
     }        
     
     mysql_select_db($db);
-    echo 'end';
 
+    $sql="CREATE TABLE Test(
+          P_Id int,
+          LastName varchar(255),
+          FirstName varchar(255))";
+    $sql2="INSERT INTO Test
+        VALUES (1,'word','nah')";
+    $sql3 ="SELECT * FROM Test";
+
+    if (!mysql_query($sql,$con)) {
+      die('Error: ' . mysql_error());
+    }
+    if (!mysql_query($sql2,$con)) {
+      die('Error: ' . mysql_error());
+    }
+    $result = mysql_query($sql3,$con);
+    print_r($result);
+    
 ?>
 
 <div id="main">
